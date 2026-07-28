@@ -1,83 +1,61 @@
 /* =====================================
    DevDrop
-   Bluetooth API v0.1
+   Bluetooth API v0.2
+   Web Bluetooth Edition
 ===================================== */
 
-const bluetoothAPI = {
+const bluetoothAPI={
+
+    device:null,
+
+    server:null,
+
+    services:[],
 
     /* ==========================
-       Bluetooth状態
+       Supported
     ========================== */
 
-    async isEnabled(){
+    async isSupported(){
 
-        console.log("Bluetooth Check");
-
-        // v0.1 ダミー
-        return true;
+        return !!navigator.bluetooth;
 
     },
 
     /* ==========================
-       Bluetooth ON
-    ========================== */
-
-    async enable(){
-
-        console.log("Bluetooth Enable");
-
-        return true;
-
-    },
-
-    /* ==========================
-       Bluetooth OFF
-    ========================== */
-
-    async disable(){
-
-        console.log("Bluetooth Disable");
-
-        return true;
-
-    },
-
-    /* ==========================
-       Nearby Scan
+       Scan
     ========================== */
 
     async scan(){
 
-        console.log("Bluetooth Scan");
+        if(!await this.isSupported()){
 
-        // 仮想端末
-        return [
+            throw new Error(
+                "Web Bluetooth Not Supported"
+            );
 
-            {
+        }
 
-                id:"nothing",
+        this.device=
+        await navigator.bluetooth.requestDevice({
 
-                name:"Nothing Phone",
+            acceptAllDevices:true,
 
-                address:"AA:BB:CC:11:22:33",
+            optionalServices:[
 
-                connected:false
+                "battery_service"
 
-            },
+            ]
 
-            {
+        });
 
-                id:"chromebook",
+        return{
 
-                name:"Chromebook",
+            id:this.device.id,
 
-                address:"44:55:66:77:88:99",
+            name:this.device.name || "Unknown"
 
-                connected:false
-
-            }
-
-        ];
+        };
 
     },
 
@@ -85,13 +63,18 @@ const bluetoothAPI = {
        Connect
     ========================== */
 
-    async connect(device){
+    async connect(){
 
-        console.log("Connect");
+        if(!this.device){
 
-        console.log(device);
+            throw new Error("Device Not Selected");
 
-        return true;
+        }
+
+        this.server=
+        await this.device.gatt.connect();
+
+        return this.server.connected;
 
     },
 
@@ -101,7 +84,98 @@ const bluetoothAPI = {
 
     async disconnect(){
 
-        console.log("Disconnect");
+        if(
+
+            this.device &&
+            this.device.gatt.connected
+
+        ){
+
+            this.device.gatt.disconnect();
+
+        }
+
+    },
+
+    /* ==========================
+       Connected?
+    ========================== */
+
+    async isConnected(){
+
+        if(!this.device){
+
+            return false;
+
+        }
+
+        return this.device.gatt.connected;
+
+    },
+
+    /* ==========================
+       Services
+    ========================== */
+
+    async getServices(){
+
+        if(!this.server){
+
+            throw new Error("Not Connected");
+
+        }
+
+        this.services=
+
+        await this.server.getPrimaryServices();
+
+        return this.services;
+
+    },
+
+    /* ==========================
+       Characteristics
+    ========================== */
+
+    async getCharacteristics(service){
+
+        return await service.getCharacteristics();
+
+    },
+
+    /* ==========================
+       Read Characteristic
+    ========================== */
+
+    async read(characteristic){
+
+        const value=
+
+        await characteristic.readValue();
+
+        return value;
+
+    },
+
+    /* ==========================
+       Write Characteristic
+    ========================== */
+
+    async write(characteristic,data){
+
+        await characteristic.writeValue(data);
+
+        return true;
+
+    },
+
+    /* ==========================
+       Device Info
+    ========================== */
+
+    getDevice(){
+
+        return this.device;
 
     }
 
