@@ -28,55 +28,46 @@ const bluetoothAPI={
 
     async scan(){
 
-        if(!await this.isSupported()){
+    if(!await this.isSupported()){
 
-            throw new Error(
-                "Web Bluetooth Not Supported"
-            );
+        throw new Error(
+            "Web Bluetooth Not Supported"
+        );
 
-        }
+    }
 
-        this.device=
-        await navigator.bluetooth.requestDevice({
+    this.device =
+    await navigator.bluetooth.requestDevice({
 
-            acceptAllDevices:true,
+        acceptAllDevices:true,
 
-            optionalServices:[
+        optionalServices:[
 
-                "battery_service"
+            "battery_service"
 
-            ]
+        ]
 
-        });
+    });
 
-        return{
+    return [
+
+        {
 
             id:this.device.id,
 
-            name:this.device.name || "Unknown"
+            name:this.device.name || "Unknown",
 
-        };
+            address:this.device.id,
 
-    },
+            connected:false,
 
-    /* ==========================
-       Connect
-    ========================== */
-
-    async connect(){
-
-        if(!this.device){
-
-            throw new Error("Device Not Selected");
+            device:this.device
 
         }
 
-        this.server=
-        await this.device.gatt.connect();
+    ];
 
-        return this.server.connected;
-
-    },
+},
 
     /* ==========================
        Disconnect
