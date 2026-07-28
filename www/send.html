@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,user-scalable=no">
+
+    <title>DevDrop - Send</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/send.css">
+
+</head>
+
+<body>
+
+<div id="send-screen">
+
+    <!-- ==========================
+         Header
+    ========================== -->
+
+    <header class="send-header">
+
+        <button id="back-btn">
+
+            ←
+
+        </button>
+
+        <h1>
+
+            Send
+
+        </h1>
+
+        <button id="refresh-btn">
+
+            ⟳
+
+        </button>
+
+    </header>
+
+    <!-- ==========================
+         Selected Item
+    ========================== -->
+
+    <section class="selected-file">
+
+        <h2>
+
+            Selected
+
+        </h2>
+
+        <div id="selected-name">
+
+            No File Selected
+
+        </div>
+
+    </section>
+
+    <!-- ==========================
+         Select
+    ========================== -->
+
+    <section class="select-buttons">
+
+        <button id="select-file">
+
+            📄 Select File
+
+        </button>
+
+        <button id="select-folder">
+
+            📁 Select Folder
+
+        </button>
+
+        <button id="select-text">
+
+            📝 Send Text
+
+        </button>
+
+        <button id="select-clipboard">
+
+            📋 Clipboard
+
+        </button>
+
+    </section>
+
+    <!-- ==========================
+         Target Device
+    ========================== -->
+
+    <section class="target-device">
+
+        <h2>
+
+            Target Device
+
+        </h2>
+
+        <div id="target-device">
+
+            No Device Connected
+
+        </div>
+
+    </section>
+
+    <!-- ==========================
+         Send
+    ========================== -->
+
+    <section class="send-area">
+
+        <button id="send-btn">
+
+            📤 Send
+
+        </button>
+
+    </section>
+
+    <!-- ==========================
+         Footer
+    ========================== -->
+
+    <footer>
+
+        DevDrop Send
+
+    </footer>
+
+</div>
+
+<script src="cordova.js"></script>
+
+<script src="api/bluetoothAPI.js"></script>
+<script src="api/bluetoothPermissionAPI.js"></script>
+
+<script src="api/fileAPI.js"></script>
+<script src="api/transferAPI.js"></script>
+<script src="api/deviceAPI.js"></script>
+<script src="api/historyAPI.js"></script>
+
+<script src="api/coreAPI.js"></script>
+<script src="js/loadingDialog.js"></script>
+
+<script src="js/send.js"></script>
+
+</body>
+
+</html>
