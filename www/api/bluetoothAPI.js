@@ -104,25 +104,32 @@ const bluetoothAPI={
 
     },
 
-    /* ==========================
-       Services
-    ========================== */
+/* ==========================
+　Services
+ ========================== */
 
-    async getServices(){
+   async getServices(){
 
-        if(!this.server){
+    if(!this.server){
 
-            throw new Error("Not Connected");
+        throw new Error("Not Connected");
 
-        }
+    }
 
-        this.services=
-
+    const services =
         await this.server.getPrimaryServices();
 
-        return this.services;
+    this.services = services;
 
-    },
+    return services.map(service=>({
+
+        uuid:service.uuid,
+
+        service:service
+
+    }));
+
+},
 
     /* ==========================
        Characteristics
