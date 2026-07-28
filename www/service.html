@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0,user-scalable=no">
+
+<title>DevDrop - Services</title>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/service.css">
+
+</head>
+
+<body>
+
+<div id="service-screen">
+
+    <header class="service-header">
+
+        <button id="back-btn">
+
+            ←
+
+        </button>
+
+        <h1>
+
+            Bluetooth Services
+
+        </h1>
+
+    </header>
+
+    <section class="connected-info">
+
+        <div class="connected-icon">
+
+            🔗
+
+        </div>
+
+        <div>
+
+            <h2>
+
+                Connected
+
+            </h2>
+
+            <p>
+
+                Service Discovery
+
+            </p>
+
+        </div>
+
+    </section>
+
+    <main id="service-list">
+
+        <div class="loading">
+
+            Loading Services...
+
+        </div>
+
+    </main>
+
+    <footer>
+
+        DevDrop Bluetooth
+
+    </footer>
+
+</div>
+
+<script src="api/bluetoothAPI.js"></script>
+
+<script src="js/service.js"></script>
+
+</body>
+
+</html>
