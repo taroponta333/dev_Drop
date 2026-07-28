@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,user-scalable=no">
+
+    <title>DevDrop - Devices</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/devices.css">
+    <link rel="stylesheet" href="css/loadingDialog.css">
+
+</head>
+
+<body>
+
+<div id="devices-screen">
+
+    <!-- ==========================
+         Header
+    ========================== -->
+
+    <header class="devices-header">
+
+        <button id="back-btn">
+
+            ←
+
+        </button>
+
+        <h1>
+
+            Bluetooth Devices
+
+        </h1>
+
+        <button id="scan-btn">
+
+            🔄
+
+        </button>
+
+    </header>
+
+    <!-- ==========================
+         Bluetooth Status
+    ========================== -->
+
+    <section id="bluetooth-status">
+
+        <span id="bt-icon">
+
+            🔵
+
+        </span>
+
+        <span id="bt-text">
+
+            Bluetooth確認中...
+
+        </span>
+
+    </section>
+
+    <!-- ==========================
+         Device List
+    ========================== -->
+
+    <main id="device-list">
+
+        <div class="loading">
+
+            Scanしてください
+
+        </div>
+
+    </main>
+
+    <!-- ==========================
+         Footer
+    ========================== -->
+
+    <footer>
+
+        DevDrop Bluetooth
+
+    </footer>
+
+</div>
+
+<!-- ==========================
+     Scripts
+========================== -->
+
+<script src="cordova.js"></script>
+
+<script src="api/bluetoothAPI.js"></script>
+<script src="api/bluetoothPermissionAPI.js"></script>
+
+<script src="api/fileAPI.js"></script>
+<script src="api/transferAPI.js"></script>
+<script src="api/deviceAPI.js"></script>
+<script src="api/historyAPI.js"></script>
+
+<script src="api/coreAPI.js"></script>
+
+<script src="js/connectDialog.js"></script>
+
+<script src="js/loadingDialog.js"></script>
+
+<script src="js/devices.js"></script>
+
+</body>
+
+</html>
