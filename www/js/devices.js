@@ -1,65 +1,43 @@
 /* =====================================
    DevDrop
    devices.js
+   Web Bluetooth Edition
 ===================================== */
 
 const statusText = document.getElementById("bt-text");
 const deviceList = document.getElementById("device-list");
 
 /* ==========================
-   初期化
-========================== */
-
-async function initBluetooth(){
-
-    const permission =
-        await bluetoothPermissionAPI.hasPermission();
-
-    if(!permission){
-
-        await bluetoothPermissionAPI.request();
-
-    }
-
-    const enabled =
-        await bluetoothAPI.isEnabled();
-
-    if(enabled){
-
-        statusText.textContent="Bluetooth ON";
-
-    }else{
-
-        statusText.textContent="Bluetooth OFF";
-
-    }
-
-}
-/* ==========================
-   Bluetooth状態確認
+   Bluetooth初期化
 ========================== */
 
 async function initBluetooth(){
 
     try{
 
-        const enabled = await bluetoothAPI.isEnabled();
+        const supported =
+            await bluetoothAPI.isSupported();
 
-        if(enabled){
+        if(!supported){
 
-            statusText.textContent = "Bluetooth ON";
+            statusText.textContent =
+                "Web Bluetooth Unsupported";
 
-        }else{
-
-            statusText.textContent = "Bluetooth OFF";
+            return;
 
         }
 
-    }catch(e){
+        statusText.textContent =
+            "Bluetooth Ready";
+
+    }
+
+    catch(e){
 
         console.error(e);
 
-        statusText.textContent = "Bluetooth Error";
+        statusText.textContent =
+            "Bluetooth Error";
 
     }
 
@@ -81,11 +59,14 @@ async function scanDevices(){
 
     try{
 
-        const devices = await bluetoothAPI.scan();
+        const devices =
+            await bluetoothAPI.scan();
 
         renderDevices(devices);
 
-    }catch(e){
+    }
+
+    catch(e){
 
         console.error(e);
 
@@ -93,6 +74,10 @@ async function scanDevices(){
             <div class="loading">
 
                 Scan Error
+
+                <br><br>
+
+                ${e.message}
 
             </div>
         `;
@@ -102,14 +87,14 @@ async function scanDevices(){
 }
 
 /* ==========================
-   一覧表示
+   Device一覧
 ========================== */
 
 function renderDevices(devices){
 
     deviceList.innerHTML = "";
 
-    if(devices.length === 0){
+    if(!devices || devices.length===0){
 
         deviceList.innerHTML = `
             <div class="loading">
@@ -123,11 +108,13 @@ function renderDevices(devices){
 
     }
 
-    devices.forEach(device => {
+    devices.forEach(device=>{
 
-        const card = document.createElement("div");
+        const card =
+            document.createElement("div");
 
-        card.className = "device-item";
+        card.className =
+            "device-item";
 
         card.innerHTML = `
 
@@ -139,13 +126,13 @@ function renderDevices(devices){
 
             <div class="device-address">
 
-                ${device.address}
+                ${device.id}
 
             </div>
 
             <div class="device-status">
 
-                ${device.connected ? "🟢 Connected" : "⚪ Ready"}
+                ⚪ Ready
 
             </div>
 
@@ -157,11 +144,12 @@ function renderDevices(devices){
 
         `;
 
-        card.querySelector(".connect-btn").onclick = () => {
+        card.querySelector(".connect-btn")
+        .addEventListener("click",()=>{
 
-            showConnectDialog(device);
+            connectDevice(device);
 
-        };
+        });
 
         deviceList.appendChild(card);
 
@@ -170,13 +158,108 @@ function renderDevices(devices){
 }
 
 /* ==========================
+   Connect
+========================== */
+
+async function connectDevice(device){
+
+    showLoadingDialog("Connecting...");
+
+    try{
+
+        const connected =
+            await bluetoothAPI.connect(
+                device.device
+            );
+
+        if(!connected){
+
+            throw new Error(
+                "Connect Failed"
+            );
+
+        }
+
+        const services =
+            await bluetoothAPI.getServices();
+
+        console.log(
+            "Services",
+            services
+        );
+
+        sessionStorage.setItem(
+
+            "services",
+
+            JSON.stringify(
+
+                services.map(service=>({
+
+                    uuid:service.uuid
+
+                }))
+
+            )
+
+        );
+
+        hideLoadingDialog();
+
+        window.location.href =
+            "service.html";
+
+    }
+
+    catch(e){
+
+        hideLoadingDialog();
+
+        console.error(e);
+
+        alert(
+
+            "接続できませんでした\n\n"+
+
+            e.message
+
+        );
+
+    }
+
+}
+
+/* ==========================
    Buttons
 ========================== */
 
-document.getElementById("scan-btn").addEventListener("click", scanDevices);
+document
+.getElementById("scan-btn")
+.addEventListener(
 
-document.getElementById("back-btn").addEventListener("click", () => {
+    "click",
 
-    window.location.href = "index.html";
+    scanDevices
 
-});
+);
+
+document
+.getElementById("back-btn")
+.addEventListener(
+
+    "click",
+
+    ()=>{
+
+        window.location.href =
+        "index.html";
+
+    }
+
+);
+
+/* ==========================
+   Start
+========================== */
+
+initBluetooth();
