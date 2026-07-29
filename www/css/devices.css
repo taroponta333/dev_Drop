@@ -1,19 +1,41 @@
 /* =====================================
-   DevDrop v0.1
-   Devices
+   DevDrop v0.2
+   devices.css
 ===================================== */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+body{
+
+    background:#0f0f10;
+
+    color:#fff;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    overflow-x:hidden;
+
+}
 
 #devices-screen{
 
-    width:100%;
-    height:100vh;
-
-    background:#111111;
+    min-height:100vh;
 
     display:flex;
-    flex-direction:column;
 
-    color:#ffffff;
+    flex-direction:column;
 
 }
 
@@ -23,7 +45,11 @@
 
 .devices-header{
 
-    height:65px;
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
 
     display:flex;
 
@@ -31,17 +57,19 @@
 
     justify-content:space-between;
 
-    padding:0 18px;
+    padding:18px 20px;
 
-    background:#181818;
+    background:rgba(20,20,20,.82);
 
-    border-bottom:1px solid #2b2b2b;
+    backdrop-filter:blur(20px);
+
+    border-bottom:1px solid #303030;
 
 }
 
 .devices-header h1{
 
-    font-size:1.35rem;
+    font-size:1.2rem;
 
     font-weight:700;
 
@@ -50,6 +78,7 @@
 .devices-header button{
 
     width:42px;
+
     height:42px;
 
     border:none;
@@ -60,8 +89,6 @@
 
     color:white;
 
-    font-size:1rem;
-
     cursor:pointer;
 
     transition:.2s;
@@ -70,109 +97,220 @@
 
 .devices-header button:hover{
 
-    background:#323232;
+    background:#333;
 
 }
 
 .devices-header button:active{
 
-    transform:scale(.94);
+    transform:scale(.95);
 
 }
 
 /* ==========================
-   Bluetooth Status
+   Main
 ========================== */
 
-#bluetooth-status{
+main{
 
-    margin:18px;
+    flex:1;
 
-    padding:14px 18px;
+    padding:20px;
 
-    border-radius:18px;
+    animation:fade .25s;
 
-    background:#1d1d1d;
+}
+
+/* ==========================
+   Status Card
+========================== */
+
+#bluetooth-status,
+.service-status,
+.characteristic-status{
 
     display:flex;
 
     align-items:center;
 
-    gap:12px;
+    gap:18px;
 
-    border:1px solid #303030;
+    padding:18px;
+
+    margin-bottom:22px;
+
+    border-radius:24px;
+
+    background:#181818;
+
+    border:1px solid #2d2d2d;
 
 }
 
-#bt-icon{
+#bt-icon,
+.service-icon{
 
-    font-size:1.5rem;
+    width:70px;
+
+    height:70px;
+
+    border-radius:22px;
+
+    background:#232323;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:2rem;
 
 }
 
-#bt-text{
+#bluetooth-status h2,
+.service-status h2,
+.characteristic-status h2{
+
+    font-size:1.15rem;
+
+}
+
+#bluetooth-status p,
+.service-status p,
+.characteristic-status p{
+
+    margin-top:5px;
+
+    color:#9a9a9a;
+
+    font-size:.85rem;
+
+    word-break:break-all;
+
+}
+
+/* ==========================
+   Scan Button
+========================== */
+
+.action-bar{
+
+    margin-bottom:22px;
+
+}
+
+#scan-btn{
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:#2b6cff;
+
+    color:white;
 
     font-size:1rem;
 
     font-weight:600;
 
-}
+    cursor:pointer;
 
-/* ==========================
-   Device List
-========================== */
-
-#device-list{
-
-    flex:1;
-
-    overflow-y:auto;
-
-    padding:0 18px 18px;
+    transition:.2s;
 
 }
 
+#scan-btn:hover{
+
+    filter:brightness(1.08);
+
+}
+
+#scan-btn:active{
+
+    transform:scale(.98);
+
+}
+
 /* ==========================
-   Device Card
+   Lists
 ========================== */
 
-.device-item{
+#device-list,
+#service-list,
+#characteristic-list{
 
-    background:#1e1e1e;
+    display:flex;
 
-    border-radius:20px;
+    flex-direction:column;
 
-    border:1px solid #2e2e2e;
+    gap:16px;
+
+}
+
+/* ==========================
+   Cards
+========================== */
+
+.device-item,
+.service-item,
+.characteristic-item{
+
+    background:#1a1a1a;
+
+    border:1px solid #303030;
+
+    border-radius:22px;
 
     padding:18px;
 
-    margin-bottom:16px;
-
-    transition:.25s;
+    transition:.2s;
 
 }
 
-.device-item:hover{
+.device-item:hover,
+.service-item:hover,
+.characteristic-item:hover{
 
     transform:translateY(-2px);
 
-    background:#252525;
+    border-color:#4c4c4c;
 
 }
 
-.device-name{
+.device-item:active,
+.service-item:active,
+.characteristic-item:active{
 
-    font-size:1.05rem;
+    transform:scale(.98);
+
+}
+
+/* ==========================
+   Text
+========================== */
+
+.device-name,
+.service-name,
+.characteristic-name{
+
+    font-size:1rem;
 
     font-weight:700;
 
 }
 
-.device-address{
+.device-address,
+.service-uuid,
+.characteristic-uuid{
 
-    margin-top:6px;
+    margin-top:8px;
 
-    color:#9a9a9a;
+    color:#9c9c9c;
 
     font-size:.82rem;
 
@@ -180,27 +318,63 @@
 
 }
 
-/* Bluetooth Signal */
+/* ==========================
+   Properties
+========================== */
 
-.device-signal{
+.characteristic-properties{
 
-    margin-top:10px;
+    display:flex;
 
-    font-size:.82rem;
+    flex-wrap:wrap;
 
-    color:#69ff97;
+    gap:8px;
+
+    margin-top:16px;
 
 }
 
-/* Status */
+.property{
 
-.device-status{
+    padding:6px 12px;
 
-    margin-top:6px;
+    border-radius:999px;
 
-    font-size:.8rem;
+    background:#303030;
 
-    color:#aaaaaa;
+    font-size:.75rem;
+
+}
+
+.read{
+
+    background:#184e34;
+
+    color:#72ffb0;
+
+}
+
+.write{
+
+    background:#5b3d12;
+
+    color:#ffd27b;
+
+}
+
+.notify{
+
+    background:#173d60;
+
+    color:#79d1ff;
+
+}
+
+.indicate{
+
+    background:#4b225e;
+
+    color:#d5a6ff;
 
 }
 
@@ -210,21 +384,19 @@
 
 .connect-btn{
 
-    margin-top:16px;
-
     width:100%;
 
-    height:44px;
+    margin-top:16px;
+
+    padding:12px;
 
     border:none;
 
     border-radius:14px;
 
-    background:#ffffff;
+    background:#2b6cff;
 
-    color:#111111;
-
-    font-weight:bold;
+    color:white;
 
     cursor:pointer;
 
@@ -234,7 +406,7 @@
 
 .connect-btn:hover{
 
-    background:#dddddd;
+    filter:brightness(1.08);
 
 }
 
@@ -250,17 +422,11 @@
 
 .loading{
 
-    display:flex;
+    text-align:center;
 
-    justify-content:center;
+    padding:80px 20px;
 
-    align-items:center;
-
-    height:120px;
-
-    color:#888888;
-
-    font-size:.95rem;
+    color:#999;
 
 }
 
@@ -270,38 +436,60 @@
 
 footer{
 
-    height:52px;
+    text-align:center;
 
-    display:flex;
+    padding:18px;
 
-    justify-content:center;
-
-    align-items:center;
-
-    background:#181818;
-
-    border-top:1px solid #2b2b2b;
-
-    color:#666666;
+    color:#666;
 
     font-size:.8rem;
 
 }
 
 /* ==========================
-   ScrollBar
+   Animation
 ========================== */
 
-#device-list::-webkit-scrollbar{
+@keyframes fade{
 
-    width:6px;
+    from{
+
+        opacity:0;
+
+        transform:translateY(10px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
 
 }
 
-#device-list::-webkit-scrollbar-thumb{
+/* ==========================
+   Scrollbar
+========================== */
 
-    background:#3d3d3d;
+::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#3a3a3a;
 
     border-radius:20px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:transparent;
 
 }
