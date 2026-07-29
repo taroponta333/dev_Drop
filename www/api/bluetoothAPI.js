@@ -69,6 +69,29 @@ const bluetoothAPI={
 
 },
 
+   /* ==========================
+   Connect
+========================== */
+
+async connect(device){
+
+    this.device = device;
+
+    if(!this.device){
+
+        throw new Error(
+            "Device Not Selected"
+        );
+
+    }
+
+    this.server =
+        await this.device.gatt.connect();
+
+    return this.server.connected;
+
+},
+
     /* ==========================
        Disconnect
     ========================== */
