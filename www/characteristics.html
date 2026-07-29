@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0,user-scalable=no">
+
+<title>DevDrop - Characteristics</title>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/characteristics.css">
+
+</head>
+
+<body>
+
+<div id="characteristics-screen">
+
+    <!-- Header -->
+
+    <header class="characteristics-header">
+
+        <button id="back-btn">
+
+            ←
+
+        </button>
+
+        <h1>
+
+            Characteristics
+
+        </h1>
+
+    </header>
+
+    <!-- Service Info -->
+
+    <section class="service-info">
+
+        <div class="service-icon">
+
+            🔷
+
+        </div>
+
+        <div>
+
+            <h2 id="service-name">
+
+                Bluetooth Service
+
+            </h2>
+
+            <p id="service-uuid">
+
+                Loading...
+
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- Characteristic List -->
+
+    <main id="characteristic-list">
+
+        <div class="loading">
+
+            Loading Characteristics...
+
+        </div>
+
+    </main>
+
+    <footer>
+
+        DevDrop Bluetooth
+
+    </footer>
+
+</div>
+
+<script src="api/bluetoothAPI.js"></script>
+
+<script src="js/characteristics.js"></script>
+
+</body>
+
+</html>
