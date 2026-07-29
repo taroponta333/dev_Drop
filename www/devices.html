@@ -11,121 +11,108 @@ content="width=device-width,initial-scale=1.0,user-scalable=no">
 <title>DevDrop Bluetooth</title>
 
 <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/device.css">
+<link rel="stylesheet" href="css/devices.css">
 
 </head>
 
 <body>
 
-<div id="app">
-
-<!-- ==========================
-Header
-========================== -->
+<div id="devices-screen">
 
 <header class="devices-header">
-    
-    <button id="back-btn">
 
-        ←
+<button id="back-btn">←</button>
 
-    </button>
+<h1 id="page-title">
 
-    <h1 id="page-title">
+Bluetooth Devices
 
-        Bluetooth Devices
-
-    </h1>
+</h1>
 
 </header>
 
-<!-- ==========================
-Device Screen
-========================== -->
+<!-- Device -->
 
 <main
 id="device-screen">
 
 <section id="bluetooth-status">
-    
-    <div id="bt-icon">
-        
-        📶
 
-    </div>
+<div id="bt-icon">
 
-    <div>
+📶
 
-        <h2 id="bt-text">
-
-            Bluetooth
-
-        </h2>
-
-        <p>
-
-            Scan nearby devices
-
-        </p>
-
-    </div>
-
-</section>
+</div>
 
 <div>
 
-    <button id="scan-btn">
+<h2 id="bt-text">
 
-        🔍 Scan
+Bluetooth Ready
 
-    </button>
+</h2>
+
+<p>
+
+Scan nearby devices
+
+</p>
+
+</div>
+
+</section>
+
+<div class="action-bar">
+
+<button id="scan-btn">
+
+🔍 Scan
+
+</button>
 
 </div>
 
 <div id="device-list">
 
-    <div class="loading">
+<div class="loading">
 
-        Ready
+Ready
 
-    </div>
+</div>
 
 </div>
 
 </main>
 
-<!-- ==========================
-Service Screen
-========================== -->
+<!-- Services -->
 
 <main
 id="service-screen"
-
 style="display:none;">
 
-<section class="status-card">
+<section class="service-status">
 
-    <div class="status-icon">
+<div class="service-icon">
 
-        🔗
+🔗
 
-    </div>
+</div>
 
-    <div>
+<div>
 
-        <h2>
+<h2>
 
-            Connected
+Connected
 
-        </h2>
+</h2>
 
-        <p>
+<p>
 
-            Service Discovery
+Primary Services
 
-        </p>
+</p>
 
-    </div>
+</div>
 
 </section>
 
@@ -135,36 +122,33 @@ style="display:none;">
 
 </main>
 
-<!-- ==========================
-Characteristic Screen
-========================== -->
+<!-- Characteristics -->
 
 <main
 id="characteristic-screen"
-
 style="display:none;">
 
-<section class="status-card">
+<section class="characteristic-status">
 
-    <div class="status-icon">
+<div class="service-icon">
 
-        🔷
+🔷
 
-    </div>
+</div>
 
-    <div>
+<div>
 
-        <h2 id="service-name">
+<h2 id="service-name">
 
-            Service
+Bluetooth Service
 
-        </h2>
+</h2>
 
-        <p id="service-uuid">
+<p id="service-uuid">
 
-        </p>
+</p>
 
-    </div>
+</div>
 
 </section>
 
@@ -174,13 +158,9 @@ style="display:none;">
 
 </main>
 
-<!-- ==========================
-Footer
-========================== -->
-
 <footer>
 
-    DevDrop Bluetooth
+DevDrop Bluetooth
 
 </footer>
 
