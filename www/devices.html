@@ -3,114 +3,193 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width,initial-scale=1.0,user-scalable=no">
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0,user-scalable=no">
 
-    <title>DevDrop - Devices</title>
+<title>DevDrop Bluetooth</title>
 
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/devices.css">
-    <link rel="stylesheet" href="css/loadingDialog.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/device.css">
 
 </head>
 
 <body>
 
-<div id="devices-screen">
+<div id="app">
 
-    <!-- ==========================
-         Header
-    ========================== -->
+<!-- ==========================
+Header
+========================== -->
 
-    <header class="devices-header">
+<header class="page-header">
 
-        <button id="back-btn">
+    <button id="back-btn">
 
-            ←
+        ←
 
-        </button>
+    </button>
 
-        <h1>
+    <h1 id="page-title">
 
-            Bluetooth Devices
+        Bluetooth Devices
 
-        </h1>
+    </h1>
 
-        <button id="scan-btn">
+</header>
 
-            🔄
+<!-- ==========================
+Device Screen
+========================== -->
 
-        </button>
+<main
+id="device-screen">
 
-    </header>
+<section class="status-card">
 
-    <!-- ==========================
-         Bluetooth Status
-    ========================== -->
+    <div class="status-icon">
 
-    <section id="bluetooth-status">
+        📶
 
-        <span id="bt-icon">
+    </div>
 
-            🔵
+    <div>
 
-        </span>
+        <h2 id="bt-text">
 
-        <span id="bt-text">
+            Bluetooth
 
-            Bluetooth確認中...
+        </h2>
 
-        </span>
+        <p>
 
-    </section>
+            Scan nearby devices
 
-    <!-- ==========================
-         Device List
-    ========================== -->
+        </p>
 
-    <main id="device-list">
+    </div>
 
-        <div class="loading">
+</section>
 
-            Scanしてください
+<div class="action-bar">
 
-        </div>
+    <button id="scan-btn">
 
-    </main>
+        🔍 Scan
 
-    <!-- ==========================
-         Footer
-    ========================== -->
-
-    <footer>
-
-        DevDrop Bluetooth
-
-    </footer>
+    </button>
 
 </div>
 
+<div id="device-list">
+
+    <div class="loading">
+
+        Ready
+
+    </div>
+
+</div>
+
+</main>
+
 <!-- ==========================
-     Scripts
+Service Screen
 ========================== -->
+
+<main
+id="service-screen"
+
+style="display:none;">
+
+<section class="status-card">
+
+    <div class="status-icon">
+
+        🔗
+
+    </div>
+
+    <div>
+
+        <h2>
+
+            Connected
+
+        </h2>
+
+        <p>
+
+            Service Discovery
+
+        </p>
+
+    </div>
+
+</section>
+
+<div id="service-list">
+
+</div>
+
+</main>
+
+<!-- ==========================
+Characteristic Screen
+========================== -->
+
+<main
+id="characteristic-screen"
+
+style="display:none;">
+
+<section class="status-card">
+
+    <div class="status-icon">
+
+        🔷
+
+    </div>
+
+    <div>
+
+        <h2 id="service-name">
+
+            Service
+
+        </h2>
+
+        <p id="service-uuid">
+
+        </p>
+
+    </div>
+
+</section>
+
+<div id="characteristic-list">
+
+</div>
+
+</main>
+
+<!-- ==========================
+Footer
+========================== -->
+
+<footer>
+
+    DevDrop Bluetooth
+
+</footer>
+
+</div>
 
 <script src="cordova.js"></script>
 
 <script src="api/bluetoothAPI.js"></script>
-<script src="api/bluetoothPermissionAPI.js"></script>
-
-<script src="api/fileAPI.js"></script>
-<script src="api/transferAPI.js"></script>
-<script src="api/deviceAPI.js"></script>
-<script src="api/historyAPI.js"></script>
-
 <script src="api/coreAPI.js"></script>
-
-<script src="js/connectDialog.js"></script>
-
-<script src="js/loadingDialog.js"></script>
 
 <script src="js/devices.js"></script>
 
