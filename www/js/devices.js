@@ -410,19 +410,94 @@ function renderCharacteristics(chars){
 
         `;
 
-        card.onclick = ()=>{
+        card.onclick = async ()=>{
 
-            bluetoothAPI.selectedCharacteristic = c;
+    try{
 
-            alert(
-                "Read / Write画面は\nv0.3で実装予定"
-            );
+        const value =
+            await bluetoothAPI.readCharacteristic(c);
 
-        };
+        showReadDialog(c,value);
 
+    }
+
+    catch(e){
+
+        console.error(e);
+
+        alert(
+
+            "Read Error\n\n"+
+
+            e.message
+
+        );
+
+    }
+
+};
         characteristicList.appendChild(card);
 
     });
+
+}
+
+/* ==========================
+   Read Dialog
+========================== */
+
+function showReadDialog(
+
+    characteristic,
+
+    value
+
+){
+
+    let text = "";
+
+    try{
+
+        text =
+        bluetoothAPI.decodeValue(value);
+
+    }
+
+    catch(e){
+
+        text = "";
+
+    }
+
+    if(text===""){
+
+        try{
+
+            text =
+            bluetoothAPI.readUint8(value)
+            .toString();
+
+        }
+
+        catch(e){
+
+            text = "Binary Data";
+
+        }
+
+    }
+
+    alert(
+
+`Characteristic
+
+UUID
+${characteristic.uuid}
+
+Value
+${text}`
+
+    );
 
 }
 
