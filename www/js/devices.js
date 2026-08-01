@@ -454,15 +454,20 @@ function showReadDialog(
 
 ){
 
-    let text = "";
+    let text;
 
-    try{
+if(characteristic.uuid.includes("2a19")){
 
-        text =
+    text =
+        bluetoothAPI.readUint8(value) + "%";
+
+}else{
+
+    text =
         bluetoothAPI.decodeValue(value);
 
-    }
-
+}
+   
     catch(e){
 
         text = "";
