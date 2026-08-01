@@ -446,6 +446,10 @@ function renderCharacteristics(chars){
    Read Dialog
 ========================== */
 
+/* ==========================
+   Read Dialog
+========================== */
+
 function showReadDialog(
 
     characteristic,
@@ -456,22 +460,46 @@ function showReadDialog(
 
     let text;
 
-if(characteristic.uuid.includes("2a19")){
+    try{
 
-    text =
-        bluetoothAPI.readUint8(value) + "%";
+        /* Battery Level */
+        if(
 
-}else{
+            characteristic.uuid
+            .toLowerCase()
+            .includes("2a19")
 
-    text =
-        bluetoothAPI.decodeValue(value);
+        ){
 
-}
-        catch(e){
+            text =
+                bluetoothAPI.readUint8(value)
+                + "%";
 
-            text = "Binary Data";
+        }else{
+
+            /* 文字列として読む */
+            text =
+                bluetoothAPI.decodeValue(value);
+
+            /* 空文字なら数値を試す */
+            if(
+
+                text === ""
+
+            ){
+
+                text =
+                    bluetoothAPI
+                    .readUint8(value)
+                    .toString();
+
+            }
 
         }
+
+    }catch(e){
+
+        text = "Binary Data";
 
     }
 
