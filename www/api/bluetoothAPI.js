@@ -235,6 +235,78 @@ async writeCharacteristic(
     return true;
 
 },
+
+   /* ==========================
+   Write UInt8
+========================== */
+
+async writeUint8(
+
+    characteristic,
+
+    value
+
+){
+
+    const buffer =
+
+        new Uint8Array([
+
+            value
+
+        ]);
+
+    await characteristic.writeValue(buffer);
+
+    return true;
+
+},
+
+   /* ==========================
+   Write Bytes
+========================== */
+
+async writeBytes(
+
+    characteristic,
+
+    bytes
+
+){
+
+    await characteristic.writeValue(
+
+        new Uint8Array(bytes)
+
+    );
+
+    return true;
+
+},
+   const text =
+
+prompt(
+
+    "Write Data"
+
+);
+
+if(
+
+    text!==null
+
+){
+
+    await bluetoothAPI
+    .writeCharacteristic(
+
+        characteristic,
+
+        text
+
+    );
+
+}
    
     /* ==========================
        Device Info
