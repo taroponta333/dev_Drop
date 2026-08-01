@@ -300,15 +300,15 @@ function renderServices(services){
 
             <div class="service-name">
 
-                Bluetooth Service
+    ${uuidAPI.getServiceName(service.uuid)}
 
-            </div>
+</div>
 
-            <div class="service-uuid">
+<div class="service-uuid">
 
-                ${service.uuid}
+    ${service.uuid}
 
-            </div>
+</div>
 
             <div class="service-status">
 
@@ -379,13 +379,13 @@ function renderCharacteristics(chars){
 
             <div class="characteristic-name">
 
-                Characteristic
+             ${uuidAPI.getCharacteristicName(c.uuid)}
 
             </div>
 
             <div class="characteristic-uuid">
 
-                ${c.uuid}
+             ${c.uuid}
 
             </div>
 
@@ -505,16 +505,21 @@ function showReadDialog(
 
     alert(
 
-`Characteristic
+`${uuidAPI.getCharacteristicName(
+
+characteristic.uuid
+
+)}
 
 UUID
+
 ${characteristic.uuid}
 
 Value
+
 ${text}`
 
-    );
-
+);
 }
 
 /* ==========================
