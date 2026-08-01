@@ -467,23 +467,6 @@ if(characteristic.uuid.includes("2a19")){
         bluetoothAPI.decodeValue(value);
 
 }
-   
-    catch(e){
-
-        text = "";
-
-    }
-
-    if(text===""){
-
-        try{
-
-            text =
-            bluetoothAPI.readUint8(value)
-            .toString();
-
-        }
-
         catch(e){
 
             text = "Binary Data";
