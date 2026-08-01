@@ -207,18 +207,35 @@ const bluetoothAPI = {
 
     },
 
-    /* ==========================
-       Write Characteristic
-    ========================== */
+   /* ==========================
+   Write Characteristic
+========================== */
 
-    async writeCharacteristic(characteristic,data){
+async writeCharacteristic(
 
-        await characteristic.writeValue(data);
+    characteristic,
 
-        return true;
+    data
 
-    },
+){
 
+    if(
+
+        typeof data === "string"
+
+    ){
+
+        data =
+        new TextEncoder().encode(data);
+
+    }
+
+    await characteristic.writeValue(data);
+
+    return true;
+
+},
+   
     /* ==========================
        Device Info
     ========================== */
