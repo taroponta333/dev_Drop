@@ -197,7 +197,7 @@ async connect(device){
     getDevice(){
 
         return this.device;
-    }
+    
        /* ==========================
          Read Characteristic
       　========================== */
@@ -210,7 +210,23 @@ async connect(device){
           return value;
 
          },
+         /* ==========================
+            Decode Value
+         ========================== */
 
-    }
+         decodeValue(value){
 
-};
+             try{
+
+                 return new TextDecoder().decode(value);
+
+             }
+
+             catch(e){
+
+                 return "";
+
+          }
+         },
+       }
+      };   
