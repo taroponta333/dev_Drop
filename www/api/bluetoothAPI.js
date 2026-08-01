@@ -197,6 +197,19 @@ async connect(device){
     getDevice(){
 
         return this.device;
+    }
+       /* ==========================
+         Read Characteristic
+      　========================== */
+
+         async readCharacteristic(characteristic){
+
+             const value =
+              await characteristic.readValue();
+
+          return value;
+
+         },
 
     }
 
