@@ -4,13 +4,13 @@
    Web Bluetooth Edition
 ===================================== */
 
-const bluetoothAPI={
+const bluetoothAPI = {
 
-    device:null,
+    device: null,
 
-    server:null,
+    server: null,
 
-    services:[],
+    services: [],
 
     /* ==========================
        Supported
@@ -28,69 +28,69 @@ const bluetoothAPI={
 
     async scan(){
 
-    if(!await this.isSupported()){
+        if(!await this.isSupported()){
 
-        throw new Error(
-            "Web Bluetooth Not Supported"
-        );
-
-    }
-
-    this.device =
-    await navigator.bluetooth.requestDevice({
-
-        acceptAllDevices:true,
-
-        optionalServices:[
-
-            "battery_service"
-
-        ]
-
-    });
-
-    return [
-
-        {
-
-            id:this.device.id,
-
-            name:this.device.name || "Unknown",
-
-            address:this.device.id,
-
-            connected:false,
-
-            device:this.device
+            throw new Error(
+                "Web Bluetooth Not Supported"
+            );
 
         }
 
-    ];
+        this.device =
+        await navigator.bluetooth.requestDevice({
 
-},
+            acceptAllDevices: true,
 
-   /* ==========================
-   Connect
-========================== */
+            optionalServices: [
 
-async connect(device){
+                "battery_service"
 
-    this.device = device;
+            ]
 
-    if(!this.device){
+        });
 
-        throw new Error(
-            "Device Not Selected"
-        );
+        return [
 
-    }
+            {
 
-    this.server =
-        await this.device.gatt.connect();
+                id: this.device.id,
 
-    return this.server.connected;
+                name: this.device.name || "Unknown",
 
-},
+                address: this.device.id,
+
+                connected: false,
+
+                device: this.device
+
+            }
+
+        ];
+
+    },
+
+    /* ==========================
+       Connect
+    ========================== */
+
+    async connect(device){
+
+        this.device = device;
+
+        if(!this.device){
+
+            throw new Error(
+                "Device Not Selected"
+            );
+
+        }
+
+        this.server =
+            await this.device.gatt.connect();
+
+        return this.server.connected;
+
+    },
 
     /* ==========================
        Disconnect
@@ -127,32 +127,34 @@ async connect(device){
 
     },
 
-/* ==========================
-　Services
- ========================== */
+    /* ==========================
+       Services
+    ========================== */
 
-   async getServices(){
+    async getServices(){
 
-    if(!this.server){
+        if(!this.server){
 
-        throw new Error("Not Connected");
+            throw new Error(
+                "Not Connected"
+            );
 
-    }
+        }
 
-    const services =
-        await this.server.getPrimaryServices();
+        const services =
+            await this.server.getPrimaryServices();
 
-    this.services = services;
+        this.services = services;
 
-    return services.map(service=>({
+        return services.map(service => ({
 
-        uuid:service.uuid,
+            uuid: service.uuid,
 
-        service:service
+            service: service
 
-    }));
+        }));
 
-},
+    },
 
     /* ==========================
        Characteristics
@@ -168,13 +170,40 @@ async connect(device){
        Read Characteristic
     ========================== */
 
-    async read(characteristic){
+    async readCharacteristic(characteristic){
 
-        const value=
-
-        await characteristic.readValue();
+        const value =
+            await characteristic.readValue();
 
         return value;
+
+    },
+
+    /* ==========================
+       Decode Value
+    ========================== */
+
+    decodeValue(value){
+
+        try{
+
+            return new TextDecoder().decode(value);
+
+        }catch(e){
+
+            return "";
+
+        }
+
+    },
+
+    /* ==========================
+       Read UInt8
+    ========================== */
+
+    readUint8(value){
+
+        return value.getUint8(0);
 
     },
 
@@ -182,7 +211,7 @@ async connect(device){
        Write Characteristic
     ========================== */
 
-    async write(characteristic,data){
+    async writeCharacteristic(characteristic,data){
 
         await characteristic.writeValue(data);
 
@@ -197,36 +226,7 @@ async connect(device){
     getDevice(){
 
         return this.device;
-    
-       /* ==========================
-         Read Characteristic
-      　========================== */
 
-         async readCharacteristic(characteristic){
+    }
 
-             const value =
-              await characteristic.readValue();
-
-          return value;
-
-         },
-         /* ==========================
-            Decode Value
-         ========================== */
-
-         decodeValue(value){
-
-             try{
-
-                 return new TextDecoder().decode(value);
-
-             }
-
-             catch(e){
-
-                 return "";
-
-          }
-         },
-       }
-      };   
+};
